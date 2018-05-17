@@ -7,7 +7,7 @@ import manipulate_df as m_df
 import check_qs as c_qs
 import config
 import numpy as np
-
+from datetime import datetime
 
 start = timeit.default_timer()
 
@@ -46,6 +46,9 @@ sql_string = config.sql_str_return()
 engine = create_engine('mssql+pyodbc://@python')
 con = engine.connect()
 df = pd.read_sql(sql_string, con)
+
+
+now = datetime.now()
 
 
 # Data_File = '/Users/Ludwig/Documents/Arbeit/Python/Data/Timeline_v27.xlsm'
@@ -90,9 +93,15 @@ PrioDF = prio.initPrio()
 """
             loop over all datasets
 """
+
+print("Number of Datasets: ", len(df.UHD))
+
 for i in range(0,len(df.UHD)):
 
             print("\n --- Row: ", i, " ---")
+
+            if abs((now - df.DateShipped.iloc[i]).days) > 2000:
+                df.DateShipped.iloc[i] = pd.NaT
 
             if df.POS.iloc[i] == "POS":
                 #print("POS")

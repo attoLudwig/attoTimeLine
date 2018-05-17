@@ -1,3 +1,3 @@
 # attoTimeLine
 
-# Run 'read_in.py' with python3
+Run 'read_in.py' with python3
